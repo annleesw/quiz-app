@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 
 import 'package:quiz_app/questions_summary/summary_item.dart';
 
-class QuestionsSummary extends StatelessWidget{
+class QuestionsSummary extends StatelessWidget {
   const QuestionsSummary(this.summaryData, {super.key});
 
   final List<Map<String, Object>> summaryData;
@@ -16,10 +16,10 @@ class QuestionsSummary extends StatelessWidget{
           children: summaryData.map(
             (data) {
               return SummaryItem(data);
-            }
-          ).toList()
+            },
+          ).toList(),
         ),
       ),
-    ); //map() output's an iterable object, then convert to list
+    );
   }
 }

@@ -1,17 +1,11 @@
 import 'package:flutter/material.dart';
 
-//var keeps it optional, final makes it required, const makes it immutable
-const startAlignment = Alignment.topLeft; //Alignment? is a nullable type
-const endAlignment = Alignment.bottomRight;
+class StartScreen extends StatelessWidget {
+  const StartScreen(this.startQuiz, {super.key});
 
-class StartScreen extends StatelessWidget {//StatelessWidget is a class
-  const StartScreen(this.startQuiz, {super.key}); //positional argument
-  //const GradientContainer({super.key}, required this.colors); 
-  // initialise the class
-  // super.key is a constructor
-    final void Function()startQuiz;
+  final void Function() startQuiz;
 
-  @override //Override is a annotation
+  @override
   Widget build(context) {
     return Center(
       child: Column(
@@ -20,15 +14,22 @@ class StartScreen extends StatelessWidget {//StatelessWidget is a class
           Image.asset(
             'assets/images/quiz-logo.png',
             width: 300,
-            color: const Color.fromARGB(125, 255, 255, 255),
-            ),
+            color: const Color.fromARGB(150, 255, 255, 255),
+          ),
+          // Opacity(
+          //   opacity: 0.6,
+          //   child: Image.asset(
+          //     'assets/images/quiz-logo.png',
+          //     width: 300,
+          //   ),
+          // ),
           const SizedBox(height: 80),
           Text(
-              'Learn Flutter the fun way!', 
-              style: TextStyle(
-                color: Colors.white,
-                fontSize: 24,
-              ),
+            'Learn Flutter the fun way!',
+            style: TextStyle(
+              color: const Color.fromARGB(255, 237, 223, 252),
+              fontSize: 24,
+            ),
           ),
           const SizedBox(height: 30),
           OutlinedButton.icon(
@@ -37,8 +38,8 @@ class StartScreen extends StatelessWidget {//StatelessWidget is a class
               foregroundColor: Colors.white,
             ),
             icon: const Icon(Icons.arrow_right_alt),
-            label: const Text('Start quiz')
-          ),
+            label: const Text('Start Quiz'),
+          )
         ],
       ),
     );

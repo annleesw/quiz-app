@@ -1,42 +1,48 @@
-import 'package:flutter/material.dart'; //connect to flutter package
-import 'package:quiz_app/answer_button.dart'; 
+import 'package:flutter/material.dart';
+
+import 'package:quiz_app/answer_button.dart';
 import 'package:quiz_app/data/questions.dart';
 
-class QuestionsScreen extends StatefulWidget { //StatelessWidget always have 2 classes
-  const QuestionsScreen({super.key, required this.onSelectAnswer}); //positional argument
+class QuestionsScreen extends StatefulWidget {
+  const QuestionsScreen({
+    super.key,
+    required this.onSelectAnswer,
+  });
 
   final void Function(String answer) onSelectAnswer;
 
-  @override //Override is a annotation
+  @override
   State<QuestionsScreen> createState() {
     return _QuestionsScreenState();
   }
 }
-class _QuestionsScreenState extends State<QuestionsScreen> { //constructor function
+
+class _QuestionsScreenState extends State<QuestionsScreen> {
   var currentQuestionIndex = 0;
 
   void answerQuestion(String selectedAnswer) {
-    widget.onSelectAnswer('...'); //access stateful widget
-    // currentQuestionIndex += 1;
+    widget.onSelectAnswer(selectedAnswer);
     // currentQuestionIndex = currentQuestionIndex + 1;
-    setState(() { //execute build method again
-      currentQuestionIndex++; //increments the value by 1 only
+    // currentQuestionIndex += 1;
+    setState(() {
+      currentQuestionIndex++; // increments the value by 1
     });
   }
 
-  @override //Override is a annotation
+  @override
   Widget build(context) {
-  final currentQuestion = questions[currentQuestionIndex];
+    final currentQuestion = questions[currentQuestionIndex];
+
     return SizedBox(
-      width: double.infinity, //build as wide as possible
+      width: double.infinity,
       child: Container(
-        margin: EdgeInsets.all(20),
+        margin: const EdgeInsets.all(40),
         child: Column(
-          mainAxisAlignment: MainAxisAlignment.center, //vertical alignment
-          crossAxisAlignment: CrossAxisAlignment.stretch, //horizontal alignment
+          mainAxisAlignment: MainAxisAlignment.center,
+          crossAxisAlignment: CrossAxisAlignment.stretch,
           children: [
             Text(
-              currentQuestion.text, 
+              currentQuestion.text,
               style: TextStyle(
                 color: const Color.fromARGB(255, 201, 153, 251),
                 fontSize: 24,
@@ -45,20 +51,17 @@ class _QuestionsScreenState extends State<QuestionsScreen> { //constructor funct
               textAlign: TextAlign.center,
             ),
             const SizedBox(height: 30),
-            ...currentQuestion.getShuffledAnswers().map((answer) { 
-              //map() yields an iterable (~a list), 'list in a list'
-              //...: spread operator used instead of hard coding each button
+            ...currentQuestion.getShuffledAnswers().map((answer) {
               return AnswerButton(
-                answerText: answer, 
+                answerText: answer,
                 onTap: () {
                   answerQuestion(answer);
-                }
+                },
               );
             })
           ],
         ),
       ),
     );
-    // const Text('Question Screen');
   }
 }
