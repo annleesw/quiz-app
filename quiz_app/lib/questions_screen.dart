@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart'; //connect to flutter package
 import 'package:quiz_app/answer_button.dart'; 
 import 'package:quiz_app/data/questions.dart';
-import 'package:google_fonts/google_fonts.dart';
 
 class QuestionsScreen extends StatefulWidget { //StatelessWidget always have 2 classes
   const QuestionsScreen({super.key, required this.onSelectAnswer}); //positional argument
@@ -38,7 +37,7 @@ class _QuestionsScreenState extends State<QuestionsScreen> { //constructor funct
           children: [
             Text(
               currentQuestion.text, 
-              style: GoogleFonts.lato(
+              style: TextStyle(
                 color: const Color.fromARGB(255, 201, 153, 251),
                 fontSize: 24,
                 fontWeight: FontWeight.bold,

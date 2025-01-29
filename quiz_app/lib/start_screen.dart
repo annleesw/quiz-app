@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:google_fonts/google_fonts.dart'; //connect to flutter package
 
 //var keeps it optional, final makes it required, const makes it immutable
 const startAlignment = Alignment.topLeft; //Alignment? is a nullable type
@@ -26,7 +25,7 @@ class StartScreen extends StatelessWidget {//StatelessWidget is a class
           const SizedBox(height: 80),
           Text(
               'Learn Flutter the fun way!', 
-              style: GoogleFonts.lato(
+              style: TextStyle(
                 color: Colors.white,
                 fontSize: 24,
               ),

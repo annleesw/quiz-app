@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart'; //connect to flutter package
+
 import 'package:quiz_app/questions_screen.dart';
 import 'package:quiz_app/start_screen.dart'; 
 import 'package:quiz_app/data/questions.dart';
@@ -43,6 +44,14 @@ class _QuizState extends State<Quiz> { //constructor function
       });
     }
   }
+
+  void restartQuiz() {
+    setState(() { //re-execute build method
+      selectedAnswer = [];
+      activeScreen = 'questions-screen';
+    }); 
+  }
+
   @override //Override is a annotation
   Widget build(context) {
     Widget screenWidget = StartScreen(switchScreen);
@@ -54,13 +63,15 @@ class _QuizState extends State<Quiz> { //constructor function
     }
 
     if (activeScreen == 'results-screen') {
-      screenWidget = ResultsScreen(chosenAnswers: selectedAnswer,);
+      screenWidget = ResultsScreen(
+        chosenAnswers: selectedAnswer,
+        onRestart: restartQuiz);
     }
     
     // final screenWidget = activeScreen == 'start-screen'
     //   ? StartScreen(switchScreen)
     //   : QuestionsScreen();
-
+    
     return MaterialApp(
       // const optimise runtime performance & keep const, MaterialApp is a widget
       home: Scaffold(
