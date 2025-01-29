@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart'; //connect to flutter package
 import 'package:quiz_app/questions_screen.dart';
 import 'package:quiz_app/start_screen.dart'; 
+import 'package:quiz_app/data/questions.dart';
+import 'package:quiz_app/results_screen.dart';
 
 class Quiz extends StatefulWidget { //Stateful Widget always have 2 classes
   const Quiz({super.key}); //positional argument
@@ -12,8 +14,9 @@ class Quiz extends StatefulWidget { //Stateful Widget always have 2 classes
 }
 class _QuizState extends State<Quiz> { //constructor function
   // Widget? activeScreen; //? tells Dart that var may be widget or null
-  var activeScreen = 'start-screen';
+  List<String> selectedAnswer = [];
 
+  var activeScreen = 'start-screen';
   // @override
   // void initState() { 
   //   super.initState(); //best practice is to come first bfr doing any addn work
@@ -31,12 +34,27 @@ class _QuizState extends State<Quiz> { //constructor function
     });
   }
 
+  void chooseAnswer(String answer) {
+    selectedAnswer.add(answer); //same as python
+
+    if (selectedAnswer.length == questions.length) {
+      setState(() {
+        activeScreen = 'results-screen';
+      });
+    }
+  }
   @override //Override is a annotation
   Widget build(context) {
     Widget screenWidget = StartScreen(switchScreen);
     
     if (activeScreen == 'questions-screen') {
-      screenWidget = const QuestionsScreen();  
+      screenWidget = QuestionsScreen(
+        onSelectAnswer: chooseAnswer,
+      );  
+    }
+
+    if (activeScreen == 'results-screen') {
+      screenWidget = ResultsScreen(chosenAnswers: selectedAnswer,);
     }
     
     // final screenWidget = activeScreen == 'start-screen'

@@ -4,7 +4,9 @@ import 'package:quiz_app/data/questions.dart';
 import 'package:google_fonts/google_fonts.dart';
 
 class QuestionsScreen extends StatefulWidget { //StatelessWidget always have 2 classes
-  const QuestionsScreen({super.key}); //positional argument
+  const QuestionsScreen({super.key, required this.onSelectAnswer}); //positional argument
+
+  final void Function(String answer) onSelectAnswer;
 
   @override //Override is a annotation
   State<QuestionsScreen> createState() {
@@ -13,7 +15,9 @@ class QuestionsScreen extends StatefulWidget { //StatelessWidget always have 2 c
 }
 class _QuestionsScreenState extends State<QuestionsScreen> { //constructor function
   var currentQuestionIndex = 0;
-  void answerQuestion() {
+
+  void answerQuestion(String selectedAnswer) {
+    widget.onSelectAnswer('...'); //access stateful widget
     // currentQuestionIndex += 1;
     // currentQuestionIndex = currentQuestionIndex + 1;
     setState(() { //execute build method again
@@ -35,7 +39,7 @@ class _QuestionsScreenState extends State<QuestionsScreen> { //constructor funct
             Text(
               currentQuestion.text, 
               style: GoogleFonts.lato(
-                color: Color.fromARGB(255, 201, 153, 251),
+                color: const Color.fromARGB(255, 201, 153, 251),
                 fontSize: 24,
                 fontWeight: FontWeight.bold,
               ),
@@ -45,7 +49,12 @@ class _QuestionsScreenState extends State<QuestionsScreen> { //constructor funct
             ...currentQuestion.getShuffledAnswers().map((answer) { 
               //map() yields an iterable (~a list), 'list in a list'
               //...: spread operator used instead of hard coding each button
-              return AnswerButton(answerText: answer, onTap: answerQuestion);
+              return AnswerButton(
+                answerText: answer, 
+                onTap: () {
+                  answerQuestion(answer);
+                }
+              );
             })
           ],
         ),
